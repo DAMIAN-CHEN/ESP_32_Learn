@@ -26,10 +26,10 @@
 #include "led.h"
 #include "lcd.h"
 #include "echo.h"
+#include "i2c_task.h"
 
 
 extern int64_t detect_tim_us;
-
 
 /**
  * @brief       程序入口
@@ -41,7 +41,7 @@ void app_main(void)
     uint8_t x = 0;
     esp_err_t ret;
     
-    
+ 
     ret = nvs_flash_init();             /* 初始化NVS */
 
     if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND)
@@ -54,6 +54,7 @@ void app_main(void)
     exit_init();
     spi2_init();                        /* 初始化SPI2 */
     lcd_init();                         /* 初始化LCD */
+    iic_task_init();                    /* 初始化I2C */
     echo_dev_tim_init();
     vTaskDelay(500);
     
@@ -68,6 +69,7 @@ void app_main(void)
         lcd_show_num(0 ,50, (uint32_t)(detect_tim_us/58),3,24 , BLUE);
         lcd_show_string(40, 50, 30, 24, 24, "CM", BROWN);
         //lcd_clear(WHITE);
+       
         x++;
         
         if (x == 12)

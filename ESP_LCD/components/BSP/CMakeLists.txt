@@ -2,13 +2,17 @@ set(src_dirs
             ECHO
             LCD
             LED
-            SPI)
+            SPI
+            TM1637
+            BUZZER)
 
 set(include_dirs
             ECHO
             LCD
             LED
-            SPI)
+            SPI
+            TM1637
+            BUZZER)
 
 set(requires
             driver
